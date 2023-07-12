@@ -1,0 +1,9 @@
+Kod składa się z jednego kontrolera o nazwie DistanceController. Kontroler ten ma jedną akcję o nazwie index, która jest mapowana na ścieżkę /distance dzięki adnotacji @Route.
+
+W metodzie index zdefiniowane są dwa zestawy współrzędnych geograficznych, które reprezentują punkty A i B. Współrzędne te są zdefiniowane jako zmienne $lat1, $lon1 (dla punktu A) oraz $lat2, $lon2 (dla punktu B).
+
+Następnie, odległość między tymi dwoma punktami jest obliczana za pomocą metody calculateDistance, która jest prywatną metodą w tym kontrolerze. Ta metoda przyjmuje cztery argumenty: długość geograficzną i szerokość geograficzną punktu A oraz długość geograficzną i szerokość geograficzną punktu B.
+
+Metoda calculateDistance oblicza odległość między dwoma punktami na Ziemi, używając formuły haversine. Formuła ta jest używana do obliczania odległości między dwoma punktami na powierzchni sfery, używając ich długości i szerokości geograficznych. W tym przypadku, sfera to Ziemia, a jej promień to około 6371 kilometrów.
+
+Po obliczeniu odległości, metoda index zwraca tę odległość jako odpowiedź w JSONie, która może być łatwo przetworzona przez klienta HTTP.
