@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class DistanceController extends AbstractController
+{
+    public function index(): Response
+    {
+        // Współrzędne punktu A
+        $lat1 = 52.2296756;
+        $lon1 = 21.0122287;
+
+        // Współrzędne punktu B
+        $lat2 = 52.406374;
+        $lon2 = 16.9251681;
+
+        // Obliczanie odległości
+        $distance = $this->calculateDistance($lat1, $lon1, $lat2, $lon2);
+
+        return $this->json([
+            'distance' => $distance,
+        ]);
+    }
+
+    private function calculateDistance($lat1, $lon1, $lat2, $lon2)
+    {
+        $earth_radius = 6371;
+
+        $dLat = deg2rad($lat2 - $lat1);
+        $dLon = deg2rad($lon2 - $lon1);
+
+        $a = sin($dLat/2) * sin($dLat/2) +
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+            sin($dLon/2) * sin($dLon/2);
+        $c = 2 * atan2(sqrt($a), sqrt(1-$a));
+
+        $distance = $earth_radius * $c;
+
+        return $distance;
+    }
+}
+
+
